@@ -25,9 +25,7 @@ export function track(target, key) {
 }
 export function trigger(target, key) {
   let depsMap = targetMap.get(target)
-  console.log(depsMap);
   let dep = depsMap.get(key)
-  console.log(dep);
   for (const effect of dep) {
     effect.run()
   }

@@ -1,10 +1,10 @@
 import { reactive } from "../reactive"
+import { effect } from "../effect"
 describe('reactive', () => {
-  it.skip("happy path ", () => {
+  it("happy path ", () => {
     const original = { foo: 1, age: 2 }
     const observe = reactive(original)
     expect(original).not.toBe(observe)
-    observe.foo++
-    expect(observe.foo).toBe(2)
+    expect(observe.foo).toBe(1)
   })
 })

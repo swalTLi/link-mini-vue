@@ -16,4 +16,7 @@ describe("effect", () => {
     user.age++
     expect(nextAge).toBe(12)
   })
+  it('', () => {
+
+  })
 })
