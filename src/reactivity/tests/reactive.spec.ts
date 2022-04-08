@@ -3,8 +3,8 @@ import { effect } from "../effect"
 describe('reactive', () => {
   it("happy path ", () => {
     const original = { foo: 1, age: 2 }
-    const observe = reactive(original)
-    expect(original).not.toBe(observe)
-    expect(observe.foo).toBe(1)
+    const observed = reactive(original)
+    expect(original).not.toBe(observed)
+    expect(observed.foo).toBe(1)
   })
 })
