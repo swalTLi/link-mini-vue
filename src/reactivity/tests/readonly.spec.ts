@@ -9,7 +9,7 @@ describe("readonly", () => {
     warpped.foo = warpped.foo + 1
     expect(warpped.foo).toBe(1)
   })
-  it("should call console.warn then set", () => {
+  it("should call  console.warn then set", () => {
     console.warn = jest.fn()
     const user = readonly({
       age: 10
