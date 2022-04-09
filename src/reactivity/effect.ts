@@ -1,5 +1,8 @@
 import { extend } from "../shared"
 
+let activeEffect
+let shouldTrack
+const targetMap = new Map()
 class ReactiveEffect {
   private _fn: any
   deps = []
@@ -11,8 +14,20 @@ class ReactiveEffect {
     this.scheduler = scheduler
   }
   run() {
+    // 1. 会收集依赖
+    //    shouldTrack 来做区分
+    if (!this.active) {
+      return this._fn()
+    }
+
+    // 应该收集
+    shouldTrack = true
     activeEffect = this
-    return this._fn()
+
+    const result = this._fn()
+    // 重置
+    shouldTrack = false
+    return result
   }
   stop() {
     if (this.active) {
@@ -28,11 +43,12 @@ function cleanupEffect(effect) {
   effect.deps.forEach((dep: any) => {
     dep.delete(effect)
   });
+  // 把 effect.deps 清空
+  effect.deps.length = 0
 }
-let activeEffect
-const targetMap = new Map()
 export function track(target, key) {
   // target => key => dep
+  if (!isTracking()) return
   let depsMap = targetMap.get(target)
   if (!depsMap) {
     depsMap = new Map()
@@ -45,12 +61,15 @@ export function track(target, key) {
     depsMap.set(key, dep)
   }
 
-  if (!activeEffect) return;
-
+  // 看看 dep 之前有没有添加过，添加过的话 那么就不添加了
+  if (dep.has(activeEffect)) return;
   dep.add(activeEffect)
   activeEffect.deps.push(dep)
 }
 
+function isTracking() {
+  return shouldTrack && activeEffect !== undefined
+}
 export function trigger(target, key) {
   let depsMap = targetMap.get(target)
   let dep = depsMap.get(key)
