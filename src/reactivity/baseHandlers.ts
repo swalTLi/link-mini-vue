@@ -20,12 +20,11 @@ function createGetter(isReadonly = false, shallow = false) {
     if (shallow) return res
 
     // 看看res 是不是 Object
-    if (isObject(res)) {
-      return isReadonly ? readonly(res) : reactive(res)
-    }
+    if (isObject(res)) return isReadonly ? readonly(res) : reactive(res)
 
     // TODO 依赖收集
     if (!isReadonly) track(target, key)
+
     return res
   }
 }

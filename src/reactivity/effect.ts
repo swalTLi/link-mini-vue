@@ -1,7 +1,7 @@
 import { extend } from "../shared"
 
 let activeEffect
-let shouldTrack
+let shouldTrack = false
 const targetMap = new Map()
 class ReactiveEffect {
   private _fn: any
@@ -16,17 +16,16 @@ class ReactiveEffect {
   run() {
     // 1. 会收集依赖
     //    shouldTrack 来做区分
-    if (!this.active) {
-      return this._fn()
-    }
+    if (!this.active) return this._fn()
 
     // 应该收集
     shouldTrack = true
     activeEffect = this
-
     const result = this._fn()
+
     // 重置
     shouldTrack = false
+
     return result
   }
   stop() {
@@ -60,20 +59,24 @@ export function track(target, key) {
     dep = new Set()
     depsMap.set(key, dep)
   }
-
   // 看看 dep 之前有没有添加过，添加过的话 那么就不添加了
+  trackEffects(dep)
+}
+export function trackEffects(dep) {
   if (dep.has(activeEffect)) return;
+
   dep.add(activeEffect)
   activeEffect.deps.push(dep)
 }
-
-function isTracking() {
+export function isTracking() {
   return shouldTrack && activeEffect !== undefined
 }
 export function trigger(target, key) {
   let depsMap = targetMap.get(target)
   let dep = depsMap.get(key)
-
+  triggerEffects(dep)
+}
+export function triggerEffects(dep) {
   for (const effect of dep) {
     if (effect.scheduler) {
       effect.scheduler()
@@ -85,14 +88,16 @@ export function trigger(target, key) {
 export function effect(fn, options: any = {}) {
   // fn
   const _effect = new ReactiveEffect(fn, options.scheduler)
-  // _effect.onStop = options.onStop
-  // Object.assign(_effect, options)
   extend(_effect, options)
+
   _effect.run()
+
   const runner: any = _effect.run.bind(_effect)
   runner.effect = _effect
+
   return runner
 }
+
 export function stop(runner) {
   runner.effect.stop()
 }
