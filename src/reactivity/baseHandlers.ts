@@ -10,7 +10,6 @@ const shallowReadonlyGet = createGetter(true, true)
 
 function createGetter(isReadonly = false, shallow = false) {
   return function get(target, key) {
-    // console.log(key);
 
     if (key === ReactiveFlags.IS_REACTIVE) return !isReadonly
     if (key === ReactiveFlags.IS_READONLY) return isReadonly
@@ -36,7 +35,7 @@ function createSetter(isReadonly = false) {
       trigger(target, key)
       return res
     } else {
-      console.warn(`key: '${key}' set faild ,because 'target' is readonly`, target)
+      // console.warn(`key: '${key}' set faild ,because 'target' is readonly`, target)
       return true
     }
   }

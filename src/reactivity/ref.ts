@@ -48,11 +48,9 @@ export function unRef(ref) {
 export function proxyRefs(objectWithRefs) {
   return new Proxy(objectWithRefs, {
     get(target, key) {
-      console.log(Reflect.get(target, key));
       return unRef(Reflect.get(target, key))
     },
     set(target, key, value) {
-      console.log(target, key, value);
       // set -> ref .value 
       if (isRef(target[key]) && !isRef(value)) {
         return target[key].value = value
