@@ -1,0 +1,1 @@
+createApp(App).mounted("#app")
