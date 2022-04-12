@@ -1,3 +1,2 @@
-export function add(a, b) {
-  return a + b;
-}
+// mini-vue 出口
+export * from "./runtime-core/index"
