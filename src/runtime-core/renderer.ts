@@ -23,8 +23,8 @@ function patch(vnode, container) {
   // string 类型是子节点
   // type string is n son node
   const { shapeFlag } = vnode
-  // console.log(ShapeFlags);
-  
+  // console.log(shapeFlag);
+
   if (shapeFlag & ShapeFlags.ELEMENT) {
     // handle Element container
     // 处理 Elememt容器
@@ -44,6 +44,8 @@ function processElement(vnode, container) {
 function mountElement(vnode, container) {
   // const el = document.createElement(vnode.type)
   const el = (vnode.el = document.createElement(vnode.type))
+  // console.log(el);
+  // console.log(vnode.el);
 
   const { children, shapeFlag } = vnode
 
@@ -59,16 +61,16 @@ function mountElement(vnode, container) {
 
   for (const key in props) {
     const val = props[key]
-    el.setAttribute(key, val)
-    // let val = ""
-    // if (key === 'class') {
-    //   // console.log(key);
-    //   val = props[key].join(" ");
-
-    // } else {
-    //   val = props[key];
-    // }
-    // el.setAttribute(key, val)
+    const isOn = (key: string) => /^on[A-Z]/.test(key)
+    if (isOn(key)) {
+      // const EventTag = key.substring(0, 2)
+      // if (EventTag === "on") {
+      const EventName = key.substring(2).toLowerCase()
+      el.addEventListener(EventName, val)
+      // console.log(EventTag, EventName);
+    } else {
+      el.setAttribute(key, val)
+    }
   }
   container.append(el)
 }
@@ -112,6 +114,6 @@ function setupRenderEffect(instance: any, initialVNode, container) {
 
   patch(subTree, container);
   initialVNode.el = subTree.el
-  console.log(subTree.el);
+  // console.log(subTree.el);
   // Element -> mount 
 }

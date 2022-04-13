@@ -10,6 +10,15 @@ export const App = {
       {
         id: 'root',
         class: ['red', 'hard'],
+        onClick(e) {
+          console.log('onClick: root');
+        },
+        onMousedown(e) {
+          console.log('onClick: onMousedown');
+        },
+        onMouseup(e) {
+          console.log('onClick: onMouseup');
+        },
       },
       // 'hi, ' + this.msg
       [
@@ -25,7 +34,14 @@ export const App = {
           { id: 'p3', class: ['p', 'p2'] },
           h(
             'div',
-            { id: 'p3', class: ['p', 'p1'] },
+            {
+              id: 'p3',
+              class: ['p', 'p1'],
+              onClick(e) {
+                console.log('onClick: p1');
+                console.log(e);
+              },
+            },
             'this is p1 about mini-vue'
           )
         ),
