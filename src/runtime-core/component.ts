@@ -1,4 +1,4 @@
-import { PublicInstanceProxyHandlers } from "./comonentsPublicinstance";
+import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 
 export function createComponentInstance(vnode) {
   const component = {
@@ -27,11 +27,8 @@ function setupStatefulComponent(instance: any) {
   // console.log(Component.setup);
   // console.log(instance);
 
-  const a = { a: 1, b: 2 }
-
   // ctx
   instance.proxy = new Proxy({ _: instance }, PublicInstanceProxyHandlers)
-  // console.log(a);
   // console.log(instance.proxy);
 
   // console.log(instance.proxy)
