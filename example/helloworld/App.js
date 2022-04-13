@@ -12,8 +12,22 @@ export const App = {
       },
       // 'hi, ' + this.msg
       [
+        h(
+          'h1',
+          { id: 'h1', class: ['h1'] },
+          'hi ' + this.msg + ', I am ' + this.name
+        ),
         h('p', { id: 'p1', class: ['p', 'p1'] }, 'this is p1 about mini-vue'),
         h('p', { id: 'p2', class: ['p', 'p2'] }, 'this is p2 about mini-vue'),
+        h(
+          'div',
+          { id: 'p3', class: ['p', 'p2'] },
+          h(
+            'div',
+            { id: 'p3', class: ['p', 'p1'] },
+            'this is p1 about mini-vue'
+          )
+        ),
       ]
     );
   },
@@ -21,6 +35,7 @@ export const App = {
   setup() {
     return {
       msg: 'mini-vue',
+      name: 'link',
     };
   },
 };
