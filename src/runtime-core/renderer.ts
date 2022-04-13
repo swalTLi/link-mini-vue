@@ -1,4 +1,5 @@
 import { createComponentInstance, setupComponent } from "./component";
+import { createVNode } from "./vnode";
 
 export function render(vnode, container) {
   // console.log(vnode, container);
@@ -76,21 +77,21 @@ function processComponent(vnode: any, container: any) {
   mountComponent(vnode, container);
 }
 
-function mountComponent(vnode: any, container) {
+function mountComponent(initialVNode: any, container) {
   // console.log(vnode, container);
   // 创建组件实例
   // create component instance 
-  const instance = createComponentInstance(vnode);
+  const instance = createComponentInstance(initialVNode);
   // console.log(instance);
   // 初始化组件
   // init component
   setupComponent(instance);
   // console.log(instance.proxy);
   // 初始化 渲染 副作用
-  setupRenderEffect(instance, container);
+  setupRenderEffect(instance, initialVNode, container);
 }
 
-function setupRenderEffect(instance: any, container) {
+function setupRenderEffect(instance: any, initialVNode, container) {
   // console.log(instance)
   // console.log(container)
 
@@ -102,5 +103,7 @@ function setupRenderEffect(instance: any, container) {
   // console.log(instance.render.apply(proxy));/
 
   patch(subTree, container);
-  console.log(subTree, container);
+  initialVNode.el = subTree.el
+  console.log(subTree.el);
+  // Element -> mount 
 }
