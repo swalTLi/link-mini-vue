@@ -1,3 +1,5 @@
+import { shallowReadonly } from "../reactivity/reactive";
+import { initProps } from "./componentProps";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
 
 export function createComponentInstance(vnode) {
@@ -13,7 +15,7 @@ export function createComponentInstance(vnode) {
 
 export function setupComponent(instance) {
   // TODO
-  // initProps()
+  initProps(instance, instance.vnode.props)
   // initSlots()
   // 设置有状态组件
   // set component which is state
@@ -40,7 +42,7 @@ function setupStatefulComponent(instance: any) {
 
   if (setup) {
     // 得到返回的 object
-    const setupResult = setup();
+    const setupResult = setup(shallowReadonly(instance.props));
     // console.log(setupResult);
     // 把object 挂载 到 实例上  这样实例就可以通过 <this.> 获取 
     handleSetupResult(instance, setupResult);

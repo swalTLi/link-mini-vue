@@ -1,4 +1,5 @@
 import { h } from '../../lib/guide-mini-vue.esm.js';
+import { Foo } from './Foo.js';
 window.self = null;
 export const App = {
   // 必须要写 render
@@ -16,9 +17,6 @@ export const App = {
         onMousedown(e) {
           console.log('onClick: onMousedown');
         },
-        onMouseup(e) {
-          console.log('onClick: onMouseup');
-        },
       },
       // 'hi, ' + this.msg
       [
@@ -29,9 +27,8 @@ export const App = {
         ),
         h('p', { id: 'p1', class: ['p', 'p1'] }, 'this is p1 about mini-vue'),
         h('p', { id: 'p2', class: ['p', 'p2'] }, 'this is p2 about mini-vue'),
-        h(
-          'div',
-          { id: 'p3', class: ['p', 'p2'] },
+        h(Foo, { count: 1 }),
+        h('div', { id: 'p3', class: ['p', 'p2'] }, [
           h(
             'div',
             {
@@ -42,9 +39,21 @@ export const App = {
                 console.log(e);
               },
             },
-            'this is p1 about mini-vue'
-          )
-        ),
+            '$$$$$$$$$$$$'
+          ),
+          h(
+            'div',
+            {
+              id: 'p3',
+              class: ['p', 'p1'],
+              onClick(e) {
+                console.log('onClick: p1');
+                console.log(e);
+              },
+            },
+            '###########'
+          ),
+        ]),
       ]
     );
   },
