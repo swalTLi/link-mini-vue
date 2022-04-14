@@ -1,6 +1,6 @@
 import { track, trigger } from "./effect"
 import { reactive, ReactiveFlags, readonly } from "./reactive"
-import { isObject, extend } from "../shared"
+import { isObject, extend } from "../shared/index"
 const get = createGetter()
 const set = createSetter()
 const readonlyGet = createGetter(true)
@@ -35,7 +35,7 @@ function createSetter(isReadonly = false) {
       trigger(target, key)
       return res
     } else {
-      // console.warn(`key: '${key}' set faild ,because 'target' is readonly`, target)
+      console.warn(`key: '${key}' set faild ,because 'target' is readonly`, target)
       return true
     }
   }
