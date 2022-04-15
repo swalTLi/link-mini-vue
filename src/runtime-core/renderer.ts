@@ -23,8 +23,9 @@ function patch(vnode, container) {
   // because the Outermost  container is used to render root node
   // string 类型是子节点
   // type string is n son node
+  // console.log(vnode);
   const { type, shapeFlag } = vnode
-  console.log(type, shapeFlag);
+  // console.log(type, shapeFlag);
 
   // Fragment -> 只渲染children
   switch (type) {
