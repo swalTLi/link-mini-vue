@@ -23,8 +23,7 @@ function patch(vnode, container) {
   // string 类型是子节点
   // type string is n son node
   const { shapeFlag } = vnode
-  // console.log(shapeFlag);
-
+  
   if (shapeFlag & ShapeFlags.ELEMENT) {
     // handle Element container
     // 处理 Elememt容器

@@ -1,16 +1,17 @@
-import { h } from '../../lib/guide-mini-vue.esm.js';
+import { h, renderSlots } from '../../lib/guide-mini-vue.esm.js';
 
 export const Foo = {
-  setup(props) {
-    // props.count
-    console.log(props);
-
-    // 3.
-    // shallow readonly
-    props.count++;
-    console.log(props);
+  setup() {
+    return {};
   },
   render() {
-    return h('div', {}, 'foo: ' + this.count);
+    const foo = h('p', {}, 'foo');
+    // Foo .vnode .children
+    console.log(this.slots);
+    // children -> vnode
+
+    // renderSlots
+
+    return h('div', {}, [foo, renderSlots(this.$slots)]);
   },
 };
