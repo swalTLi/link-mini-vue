@@ -1,5 +1,7 @@
 import { ShapeFlags } from "../shared/ShapeFlags";
 
+export const Fragment = Symbol("Fragment")
+export const Text = Symbol("Text")
 export function createVNode(type, props?, children?) {
   // 创建 并且 返回一个虚拟dom
   // 说人话：
@@ -34,4 +36,7 @@ function getShapeFlag(type) {
   return typeof type === "string"
     ? ShapeFlags.ELEMENT
     : ShapeFlags.STATEFUL_COMPONENT
+}
+export function createTextVnode(text: string) {
+  return createVNode(Text, {}, text)
 }
