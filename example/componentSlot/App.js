@@ -1,4 +1,4 @@
-import { h, createtextVnode } from '../../lib/guide-mini-vue.esm.js';
+import { h, createTextVnode } from '../../lib/guide-mini-vue.esm.js';
 import { Foo } from './Foo.js';
 export const App = {
   name: 'App',
