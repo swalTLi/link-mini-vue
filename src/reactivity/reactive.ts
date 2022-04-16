@@ -1,4 +1,4 @@
-import { isObject } from '../shared/index'
+import { isObject } from '../shared'
 import { reactiveHandlers, readonlyHandlers, shallowReadonlyHandlers } from './baseHandlers'
 
 export const enum ReactiveFlags {

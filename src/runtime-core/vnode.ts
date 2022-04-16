@@ -37,6 +37,6 @@ function getShapeFlag(type) {
     ? ShapeFlags.ELEMENT
     : ShapeFlags.STATEFUL_COMPONENT
 }
-export function createTextVnode(text: string) {
+export function createTextVNode(text: string) {
   return createVNode(Text, {}, text)
 }
