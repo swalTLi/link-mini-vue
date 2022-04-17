@@ -20,6 +20,6 @@ export const camelize = (str: string) => {
 export const capotalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
-export const toHandlerkey = (str: string) => {
+export const toHandlerKey = (str: string) => {
   return str ? "on" + capotalize(str) : ""
 }

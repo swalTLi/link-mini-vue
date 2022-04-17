@@ -1,31 +1,28 @@
 import { getCurrentInstance } from "./component";
 
 export function provide(key, value) {
-  console.log('provide: ', key, value);
+  const currentInstance: any = getCurrentInstance();
 
-  // 存
-  // key value 
-  const currentInsatance: any = getCurrentInstance()
-  if (currentInsatance) {
-    let { provides } = currentInsatance
-    const parentProvides = currentInsatance.parent.provides
+  if (currentInstance) {
+    let { provides } = currentInstance;
+    const parentProvides = currentInstance.parent.provides;
 
     if (provides === parentProvides) {
-      provides = currentInsatance.provides = Object.create(parentProvides)
+      provides = currentInstance.provides = Object.create(parentProvides);
     }
 
-    provides[key] = value
+    provides[key] = value;
   }
 }
 
 export function inject(key, defaultValue) {
-  // 取
-  const currentInsatance: any = getCurrentInstance()
-  if (currentInsatance) {
-    const parentProvides = currentInsatance.parent.provides
+  const currentInstance: any = getCurrentInstance();
+
+  if (currentInstance) {
+    const parentProvides = currentInstance.parent.provides;
 
     if (key in parentProvides) {
-      return parentProvides[key]
+      return parentProvides[key];
     } else if (defaultValue) {
       if (typeof defaultValue === "function") {
         return defaultValue()
