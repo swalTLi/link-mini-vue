@@ -1,4 +1,4 @@
-import { proxyRefs } from "../reactivity";
+import { proxyRefs } from "..";
 import { shallowReadonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
 import { initProps } from "./componentProps";
