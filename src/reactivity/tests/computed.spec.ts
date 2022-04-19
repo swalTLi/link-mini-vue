@@ -1,16 +1,18 @@
-import { computed } from "../computed"
-import { reactive } from "../reactive"
+import { computed } from "../computed";
+import { reactive } from "../reactive";
 
-describe('computed', () => {
+describe("computed", () => {
   it("happy path", () => {
     const user = reactive({
-      age: 1
-    })
+      age: 1,
+    });
+
     const age = computed(() => {
-      return user.age
-    })
-    expect(age.value).toBe(1)
-  })
+      return user.age;
+    });
+
+    expect(age.value).toBe(1);
+  });
 
   it("should compute lazily", () => {
     const value = reactive({
@@ -25,9 +27,6 @@ describe('computed', () => {
     expect(getter).not.toHaveBeenCalled();
 
     expect(cValue.value).toBe(1);
-    expect(getter).toHaveBeenCalledTimes(1);
-
-    cValue.value
     expect(getter).toHaveBeenCalledTimes(1);
 
     // should not compute again
@@ -46,4 +45,4 @@ describe('computed', () => {
     cValue.value;
     expect(getter).toHaveBeenCalledTimes(2);
   });
-})
+});
