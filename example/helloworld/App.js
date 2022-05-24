@@ -1,27 +1,27 @@
-import { h } from '../../lib/guide-mini-vue.esm.js';
-import { Foo } from './Foo.js';
+import { h } from "../../lib/guide-mini-vue.esm.js";
+import { Foo } from "./Foo.js";
 
 window.self = null;
 export const App = {
   // 必须要写 render
-  name: 'App',
+  name:"App",
   render() {
     window.self = this;
     // ui
     return h(
-      'div',
+      "div",
       {
-        id: 'root',
-        class: ['red', 'hard'],
+        id: "root",
+        class: ["red", "hard"],
         onClick() {
-          console.log('click');
+          console.log("click");
         },
         onMousedown() {
-          console.log('mousedown');
+          console.log("mousedown");
         },
       },
       [
-        h('div', {}, 'hi,' + this.msg),
+        h("div", {}, "hi," + this.msg),
         h(Foo, {
           count: 1,
         }),
@@ -36,7 +36,7 @@ export const App = {
 
   setup() {
     return {
-      msg: 'mini-vue-haha',
+      msg: "mini-vue-haha",
     };
   },
 };

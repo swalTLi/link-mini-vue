@@ -1,3 +1,5 @@
+export * from "./toDisplayString";
+
 export const extend = Object.assign;
 
 export const EMPTY_OBJ = {};
@@ -5,6 +7,8 @@ export const EMPTY_OBJ = {};
 export const isObject = (value) => {
   return value !== null && typeof value === "object";
 };
+
+export const isString = (value) => typeof value === "string";
 
 export const hasChanged = (val, newValue) => {
   return !Object.is(val, newValue);

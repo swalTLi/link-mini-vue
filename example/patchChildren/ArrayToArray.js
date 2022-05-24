@@ -1,7 +1,7 @@
 // 老的是 array
 // 新的是 array
 
-import { ref, h } from '../../lib/guide-mini-vue.esm.js';
+import { ref, h } from "../../lib/guide-mini-vue.esm.js";
 
 // 1. 左侧的对比
 // (a b) c
@@ -186,30 +186,45 @@ import { ref, h } from '../../lib/guide-mini-vue.esm.js';
 // a,b,(c,d,e,z),f,g
 // a,b,(d,c,y,e),f,g
 
+// const prevChildren = [
+//   h("p", { key: "A" }, "A"),
+//   h("p", { key: "B" }, "B"),
+//   h("p", { key: "C" }, "C"),
+//   h("p", { key: "D" }, "D"),
+//   h("p", { key: "E" }, "E"),
+//   h("p", { key: "Z" }, "Z"),
+//   h("p", { key: "F" }, "F"),
+//   h("p", { key: "G" }, "G"),
+// ];
+
+// const nextChildren = [
+//   h("p", { key: "A" }, "A"),
+//   h("p", { key: "B" }, "B"),
+//   h("p", { key: "D" }, "D"),
+//   h("p", { key: "C" }, "C"),
+//   h("p", { key: "Y" }, "Y"),
+//   h("p", { key: "E" }, "E"),
+//   h("p", { key: "F" }, "F"),
+//   h("p", { key: "G" }, "G"),
+// ];
+
+// fix c 节点应该是 move 而不是删除之后重新创建的
 const prevChildren = [
-  h('p', { key: 'A' }, 'A'),
-  h('p', { key: 'B' }, 'B'),
-  h('p', { key: 'C' }, 'C'),
-  h('p', { key: 'D' }, 'D'),
-  h('p', { key: 'E' }, 'E'),
-  h('p', { key: 'Z' }, 'Z'),
-  h('p', { key: 'F' }, 'F'),
-  h('p', { key: 'G' }, 'G'),
+  h("p", { key: "A" }, "A"),
+  h("p", {}, "C"),
+  h("p", { key: "B" }, "B"),
+  h("p", { key: "D" }, "D"),
 ];
 
 const nextChildren = [
-  h('p', { key: 'A' }, 'A'),
-  h('p', { key: 'B' }, 'B'),
-  h('p', { key: 'D' }, 'D'),
-  h('p', { key: 'C' }, 'C'),
-  h('p', { key: 'Y' }, 'Y'),
-  h('p', { key: 'E' }, 'E'),
-  h('p', { key: 'F' }, 'F'),
-  h('p', { key: 'G' }, 'G'),
+  h("p", { key: "A" }, "A"),
+  h("p", { key: "B" }, "B"),
+  h("p", {}, "C"),
+  h("p", { key: "D" }, "D"),
 ];
 
 export default {
-  name: 'ArrayToArray',
+  name: "ArrayToArray",
   setup() {
     const isChange = ref(false);
     window.isChange = isChange;
@@ -222,7 +237,7 @@ export default {
     const self = this;
 
     return self.isChange === true
-      ? h('div', {}, nextChildren)
-      : h('div', {}, prevChildren);
+      ? h("div", {}, nextChildren)
+      : h("div", {}, prevChildren);
   },
 };

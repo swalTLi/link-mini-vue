@@ -23,8 +23,8 @@ export function inject(key, defaultValue) {
 
     if (key in parentProvides) {
       return parentProvides[key];
-    } else if (defaultValue) {
-      if (typeof defaultValue === "function") {
+    }else if(defaultValue){
+      if(typeof defaultValue === "function"){
         return defaultValue()
       }
       return defaultValue

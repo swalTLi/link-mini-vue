@@ -1,12 +1,12 @@
 // 新的是 text
 // 老的是 text
-import { ref, h } from '../../lib/guide-mini-vue.esm.js';
+import { ref, h } from "../../lib/guide-mini-vue.esm.js";
 
-const prevChildren = 'oldChild';
-const nextChildren = 'newChild';
+const prevChildren = "oldChild";
+const nextChildren = "newChild";
 
 export default {
-  name: 'TextToText',
+  name: "TextToText",
   setup() {
     const isChange = ref(false);
     window.isChange = isChange;
@@ -19,7 +19,7 @@ export default {
     const self = this;
 
     return self.isChange === true
-      ? h('div', {}, nextChildren)
-      : h('div', {}, prevChildren);
+      ? h("div", {}, nextChildren)
+      : h("div", {}, prevChildren);
   },
 };

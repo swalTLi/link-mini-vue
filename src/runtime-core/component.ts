@@ -3,12 +3,13 @@ import { shallowReadonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
 import { initProps } from "./componentProps";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";
-import { initSlots } from "./componentslots";
+import { initSlots } from "./componentSlots";
 
 export function createComponentInstance(vnode, parent) {
   const component = {
     vnode,
     type: vnode.type,
+    next: null,
     setupState: {},
     props: {},
     slots: {},
@@ -16,7 +17,7 @@ export function createComponentInstance(vnode, parent) {
     parent,
     isMounted: false,
     subTree: {},
-    emit: () => { },
+    emit: () => {},
   };
 
   component.emit = emit.bind(null, component) as any;
@@ -59,6 +60,11 @@ function handleSetupResult(instance, setupResult: any) {
 function finishComponentSetup(instance: any) {
   const Component = instance.type;
 
+  if (compiler && !Component.render) {
+    if (Component.template) {
+      Component.render = compiler(Component.template);
+    }
+  }
   instance.render = Component.render;
 }
 
@@ -70,4 +76,10 @@ export function getCurrentInstance() {
 
 export function setCurrentInstance(instance) {
   currentInstance = instance;
+}
+
+let compiler;
+
+export function registerRuntimeCompiler(_compiler) {
+  compiler = _compiler;
 }

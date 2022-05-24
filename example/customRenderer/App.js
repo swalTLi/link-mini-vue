@@ -1,4 +1,4 @@
-import { h } from '../../lib/guide-mini-vue.esm.js';
+import { h } from "../../lib/guide-mini-vue.esm.js";
 
 export const App = {
   setup() {
@@ -8,6 +8,6 @@ export const App = {
     };
   },
   render() {
-    return h('rect', { x: this.x, y: this.y });
+    return h("rect", { x: this.x, y: this.y });
   },
 };
